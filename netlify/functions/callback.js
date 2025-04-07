@@ -1,7 +1,9 @@
-import { parse } from 'plist';
+import plist from 'plist';
 
 export const handler = async function(event, context) {
   try {
+    console.log("收到回调请求:", event.httpMethod);
+    
     // 只处理 POST 请求
     if (event.httpMethod !== 'POST') {
       return {
@@ -10,8 +12,11 @@ export const handler = async function(event, context) {
       };
     }
 
+    console.log("请求体:", event.body);
+    
     // 解析 Apple 发送的 plist 数据
-    const data = parse(event.body);
+    const data = plist.parse(event.body);
+    console.log("解析后的数据:", data);
     
     // 提取设备信息
     const deviceInfo = {
@@ -21,6 +26,8 @@ export const handler = async function(event, context) {
       VERSION: data.VERSION || '',
       DEVICE_NAME: data.DEVICE_NAME || ''
     };
+
+    console.log("设备信息:", deviceInfo);
 
     // 将设备信息编码为 URL 参数
     const params = new URLSearchParams();
@@ -41,7 +48,7 @@ export const handler = async function(event, context) {
     
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: '服务器内部错误' })
+      body: JSON.stringify({ error: '服务器内部错误', details: error.message })
     };
   }
 };

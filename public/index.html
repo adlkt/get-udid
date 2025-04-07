@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>获取设备UDID</title>
     <style>
+        /* 保持原有样式不变 */
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             max-width: 600px;
@@ -63,6 +64,19 @@
         .copy-button:hover {
             background-color: #0051a8;
         }
+        
+        /* 添加调试区域样式 */
+        .debug-info {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: left;
+            font-family: monospace;
+            font-size: 12px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -96,6 +110,9 @@
         <p>安装配置文件后，系统会提示您安装描述文件，请点击"允许"并按照提示操作。</p>
         <p>获取UDID后，您将被重定向回此页面，并显示您的设备信息。</p>
     </div>
+    
+    <!-- 添加调试信息区域 -->
+    <div id="debugInfo" class="debug-info"></div>
 
     <script>
         // 解析URL参数
@@ -116,6 +133,11 @@
         // 页面加载时检查URL参数
         document.addEventListener('DOMContentLoaded', function() {
             const params = getUrlParams();
+            
+            // 显示调试信息
+            const debugInfo = document.getElementById('debugInfo');
+            debugInfo.style.display = 'block';
+            debugInfo.innerHTML = `<p>URL参数: ${JSON.stringify(params)}</p>`;
             
             // 如果URL中包含UDID，显示结果区域
             if (params.UDID) {
@@ -140,6 +162,8 @@
                             alert('复制失败，请手动复制');
                         });
                 });
+            } else {
+                debugInfo.innerHTML += `<p>未检测到UDID参数</p>`;
             }
         });
     </script>
