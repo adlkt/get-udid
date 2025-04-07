@@ -21,7 +21,7 @@
       <key>PayloadOrganization</key>
       <string>Your Company</string>
       <key>PayloadURL</key>
-      <string>https://get-udid-five.vercel.app/api/callback</string>
+      <string>https://get-udid-henna.vercel.app/api/callback</string>
     </dict>
   </array>
   <key>PayloadDisplayName</key>
