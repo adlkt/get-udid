@@ -31,6 +31,38 @@
             font-size: 14px;
             line-height: 1.5;
         }
+        .result {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            text-align: left;
+            display: none;
+        }
+        .result-item {
+            margin: 10px 0;
+        }
+        .result-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 120px;
+        }
+        .result-value {
+            font-family: monospace;
+            word-break: break-all;
+        }
+        .copy-button {
+            background-color: #0070f3;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .copy-button:hover {
+            background-color: #0051a8;
+        }
     </style>
 </head>
 <body>
@@ -38,10 +70,78 @@
     <p>点击下方按钮安装配置文件，获取您的设备UDID</p>
     <a href="/udid.mobileconfig" class="button">获取UDID</a>
     
+    <div id="result" class="result">
+        <h2>您的设备信息</h2>
+        <div class="result-item">
+            <span class="result-label">UDID:</span>
+            <span id="udid" class="result-value"></span>
+        </div>
+        <div class="result-item">
+            <span class="result-label">设备名称:</span>
+            <span id="deviceName" class="result-value"></span>
+        </div>
+        <div class="result-item">
+            <span class="result-label">设备型号:</span>
+            <span id="product" class="result-value"></span>
+        </div>
+        <div class="result-item">
+            <span class="result-label">系统版本:</span>
+            <span id="version" class="result-value"></span>
+        </div>
+        <button id="copyUdid" class="copy-button">复制UDID</button>
+    </div>
+    
     <div class="info">
         <p>UDID (Unique Device Identifier) 是您iOS设备的唯一标识符。</p>
         <p>安装配置文件后，系统会提示您安装描述文件，请点击"允许"并按照提示操作。</p>
         <p>获取UDID后，您将被重定向回此页面，并显示您的设备信息。</p>
     </div>
+
+    <script>
+        // 解析URL参数
+        function getUrlParams() {
+            const params = {};
+            const queryString = window.location.search.substring(1);
+            const pairs = queryString.split('&');
+            
+            for (const pair of pairs) {
+                if (pair === '') continue;
+                const parts = pair.split('=');
+                params[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
+            }
+            
+            return params;
+        }
+
+        // 页面加载时检查URL参数
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = getUrlParams();
+            
+            // 如果URL中包含UDID，显示结果区域
+            if (params.UDID) {
+                document.getElementById('udid').textContent = params.UDID;
+                document.getElementById('deviceName').textContent = params.DEVICE_NAME || '未知';
+                document.getElementById('product').textContent = params.PRODUCT || '未知';
+                document.getElementById('version').textContent = params.VERSION || '未知';
+                document.getElementById('result').style.display = 'block';
+                
+                // 复制UDID按钮功能
+                document.getElementById('copyUdid').addEventListener('click', function() {
+                    const udidText = document.getElementById('udid').textContent;
+                    navigator.clipboard.writeText(udidText)
+                        .then(() => {
+                            this.textContent = '已复制!';
+                            setTimeout(() => {
+                                this.textContent = '复制UDID';
+                            }, 2000);
+                        })
+                        .catch(err => {
+                            console.error('复制失败: ', err);
+                            alert('复制失败，请手动复制');
+                        });
+                });
+            }
+        });
+    </script>
 </body>
 </html>

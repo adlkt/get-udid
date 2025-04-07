@@ -19,9 +19,9 @@
       <key>PayloadDescription</key>
       <string>This profile will be used to get the UDID of your device.</string>
       <key>PayloadOrganization</key>
-      <string>Your Company</string>
+      <string>UDID Fetcher</string>
       <key>PayloadURL</key>
-      <string>https://get-udid.netlify.app/api/callback</string>
+      <string>/api/callback</string>
     </dict>
   </array>
   <key>PayloadDisplayName</key>
@@ -29,7 +29,7 @@
   <key>PayloadIdentifier</key>
   <string>com.udid.fetcher</string>
   <key>PayloadOrganization</key>
-  <string>Pear Company</string>
+  <string>UDID Fetcher</string>
   <key>PayloadType</key>
   <string>Configuration</string>
   <key>PayloadUUID</key>
