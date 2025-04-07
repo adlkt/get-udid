@@ -1,0 +1,6 @@
+###
+GET https://get-udid-henna.vercel.app/api/test
+
+###
+GET https://get-udid-henna.vercel.app/api/callback
+
