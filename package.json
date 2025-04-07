@@ -1,0 +1,18 @@
+{
+  "name": "get-udid",
+  "version": "1.0.0",
+  "description": "获取iOS设备UDID的工具",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "udid",
+    "ios"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "plist": "^3.0.6"
+  }
+}
