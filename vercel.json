@@ -1,16 +1,8 @@
 {
-  "version": 2,
   "routes": [
     {
-      "src": "/api/callback",
-      "dest": "/api/callback.js"
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/(.*)",
+      "destination": "/"
     }
   ]
 }
